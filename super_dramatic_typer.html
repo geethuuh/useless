@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>🥔 Potato Mood & Flirt</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fff8e1;
+      color: #3e2723;
+      text-align: center;
+      padding: 40px;
+      transition: background-color 0.4s, color 0.4s;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+    }
+
+    button {
+      background-color: #a1887f;
+      border: none;
+      color: white;
+      padding: 12px 24px;
+      margin: 10px;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #8d6e63;
+    }
+
+    #emoji {
+      font-size: 48px;
+      margin-top: 20px;
+    }
+
+    #mood {
+      font-size: 28px;
+      margin-top: 20px;
+    }
+
+    #flirt {
+      font-size: 22px;
+      margin-top: 10px;
+      color: #6d4c41;
+    }
+
+    #potatoGif {
+      margin-top: 30px;
+      width: 130px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🥔 Potato Mood </h1>
+  <button onclick="showMood()">Check Mood</button>
+  <button onclick="toggleTheme()">🌗 Toggle Theme</button>
+
+  <div id="emoji">🥔</div>
+  <div id="mood">Potato is waiting...</div>
+  <div id="flirt"></div>
+  <img id="potatoGif" src="https://media.giphy.com/media/l0MYEqEzwMWFCg8rm/giphy.gif" alt="Potato GIF" />
+
+  <audio id="sound" src=""></audio>
+
+  <script>
+    const moods = [
+      {
+        emoji: "😴",
+        mood: "🥔 is sleepy",
+        flirt: "I might be asleep... but I dream only of you 😴",
+        gif: "https://media.giphy.com/media/3o7TKI3hU3KOAqH7H2/giphy.gif",
+        sound: "https://www.soundjay.com/nature/sounds/rain-01.mp3"
+      },
+      {
+        emoji: "😡",
+        mood: "🥔 is angry",
+        flirt: "I'm mad... but one look from you could calm the storm 😠",
+        gif: "https://media.giphy.com/media/SUenLryFZ0txm/giphy.gif",
+        sound: "https://www.soundjay.com/button/sounds/beep-05.mp3"
+      },
+      {
+        emoji: "😊",
+        mood: "🥔 is happy (but slightly confused)",
+        flirt: "I'm smiling... I think it's because of you 😊",
+        gif: "https://media.giphy.com/media/26DNfWkQhR9bYwDb6/giphy.gif",
+        sound: "https://www.soundjay.com/human/sounds/applause-8.mp3"
+      },
+      {
+        emoji: "🔥",
+        mood: "🥔 is on fire!",
+        flirt: "Feeling hot today... or maybe it's just you 🔥😉",
+        gif: "https://media.giphy.com/media/3o7abldj0b3rxrZUxW/giphy.gif",
+        sound: "https://www.soundjay.com/fire/sounds/fire-1.mp3"
+      },
+      {
+        emoji: "🛋",
+        mood: "🥔 is in couch mode",
+        flirt: "Let's Netflix... and maybe chill? 😏🛋",
+        gif: "https://media.giphy.com/media/QBd2kLB5qDmysEXre9/giphy.gif",
+        sound: "https://www.soundjay.com/button/sounds/button-29.mp3"
+      }
+    ];
+
+    function showMood() {
+      const potato = moods[Math.floor(Math.random() * moods.length)];
+      document.getElementById("emoji").innerText = potato.emoji;
+      document.getElementById("mood").innerText = potato.mood;
+      document.getElementById("flirt").innerText = potato.flirt;
+      document.getElementById("potatoGif").src = potato.gif;
+
+      const sound = document.getElementById("sound");
+      sound.src = potato.sound;
+      sound.play();
+    }
+
+    let isDark = false;
+    function toggleTheme() {
+      isDark = !isDark;
+      document.body.style.backgroundColor = isDark ? "#1e1e1e" : "#fff8e1";
+      document.body.style.color = isDark ? "#ffffff" : "#3e2723";
+    }
+  </script>
+
+</body>
+</html>

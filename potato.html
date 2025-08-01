@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mood of the Potato: Cursed Edition</title>
+  <style>
+    body {
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding-top: 100px;
+      background-color: #fff8dc;
+      color: red;
+      overflow: hidden;
+    }
+
+    h1 {
+      font-size: 3em;
+      animation: flicker 0.2s infinite;
+    }
+
+    #mood {
+      margin-top: 30px;
+      font-size: 30px;
+      animation: shake 0.1s infinite;
+    }
+
+    button {
+      padding: 12px 25px;
+      font-size: 18px;
+      position: absolute;
+      border: 3px double red;
+      background-color: darkred;
+      color: white;
+      cursor: crosshair;
+    }
+
+    @keyframes flicker {
+      0% { opacity: 1; }
+      50% { opacity: 0.2; }
+      100% { opacity: 1; }
+    }
+
+    @keyframes shake {
+      0% { transform: translate(1px, 1px) rotate(0deg); }
+      20% { transform: translate(-2px, -2px) rotate(-1deg); }
+      40% { transform: translate(-1px, 2px) rotate(1deg); }
+      60% { transform: translate(2px, 1px) rotate(0deg); }
+      80% { transform: translate(1px, -1px) rotate(1deg); }
+      100% { transform: translate(-1px, 1px) rotate(-1deg); }
+    }
+
+    img {
+      display: none;
+      position: fixed;
+      top: 20%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 300px;
+      z-index: 1000;
+      box-shadow: 0 0 40px white;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🥔 The Cursed Potato Watches</h1>
+  <button id="chaosButton" onclick="startCursed()">Summon the Potato</button>
+  <div id="mood">It knows you're here...</div>
+  <img id="potatoImg" src="https://i.imgur.com/YHkdb9L.png" alt="Cursed Potato">
+
+  <script>
+    const moods = [
+      "🥔 WHY HAVE YOU AWAKENED ME?",
+      "🥔 I SEE YOUR SOUL",
+      "🥔 YOU CANNOT ESCAPE",
+      "🥔 THE END IS NIGH",
+      "🥔 I AM BEYOND MASHED",
+      "🥔 YOUR DESTINY... IS POTATO",
+      "🥔 PREPARE TO BE FRIED",
+      "🥔 YOU'LL REGRET THIS"
+    ];
+
+    const synth = window.speechSynthesis;
+    let interval;
+    const button = document.getElementById("chaosButton");
+    const potatoImg = document.getElementById("potatoImg");
+
+    function startCursed() {
+      if (!interval) {
+        interval = setInterval(() => {
+          const mood = moods[Math.floor(Math.random() * moods.length)];
+          document.getElementById("mood").innerText = mood;
+          speak(mood);
+          flash();
+          moveButton();
+          maybeJumpscare();
+          console.warn("🥔 POTATO SEES YOU:", mood);
+        }, 1500);
+      }
+    }
+
+    function speak(text) {
+      const utter = new SpeechSynthesisUtterance(text);
+      utter.pitch = 0.5;
+      utter.rate = 0.7;
+      utter.volume = 1;
+      synth.speak(utter);
+    }
+
+    function flash() {
+      document.body.style.backgroundColor = rgb(${rand255()},${rand255()},${rand255()});
+    }
+
+    function rand255() {
+      return Math.floor(Math.random() * 256);
+    }
+
+    function moveButton() {
+      button.style.left = Math.random() * (window.innerWidth - 100) + "px";
+      button.style.top = Math.random() * (window.innerHeight - 50) + "px";
+    }
+
+    function maybeJumpscare() {
+      if (Math.random() < 0.2) {
+        potatoImg.style.display = "block";
+        setTimeout(() => {
+          potatoImg.style.display = "none";
+        }, 800);
+      }
+    }
+  </script>
+
+</body>
+</html>

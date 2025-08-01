@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Super Dramatic Text Typer</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #222;
+            font-family: 'Impact', sans-serif;
+            color: #fff;
+            transition: background-color 0.2s;
+        }
+        input {
+            padding: 12px;
+            font-size: 20px;
+            width: 350px;
+            margin-bottom: 25px;
+            border: 3px solid #ff1493;
+            border-radius: 8px;
+            background-color: #444;
+            color: #fff;
+        }
+        #output {
+            font-size: 48px;
+            text-align: center;
+            max-width: 80%;
+            line-height: 1.2;
+        }
+        .letter {
+            display: inline-block;
+            animation: dramaticPop 0.4s ease-out;
+            color: #ffd700;
+            transform: rotate(0deg);
+        }
+        .sound {
+            font-size: 24px;
+            color: #00ff00;
+            animation: fadeOut 1s ease-out forwards;
+        }
+        .confetti {
+            position: absolute;
+            font-size: 30px;
+            animation: confettiBurst 1s ease-out forwards;
+        }
+        @keyframes dramaticPop {
+            0% { transform: scale(0) rotate(0deg); opacity: 0; }
+            50% { transform: scale(1.5) rotate(10deg); }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+        @keyframes confettiBurst {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-50px); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <input type="text" id="inputText" placeholder="Type for EPIC DRAMA!">
+    <div id="output"></div>
+    <script>
+        const input = document.getElementById('inputText');
+        const output = document.getElementById('output');
+        const soundEffects = ['KABOOM', 'ZOWIE', 'BLAMMO', 'WHAM', 'KERPLUNK', 'BOING'];
+        const confettiEmojis = ['🎉', '✨', '🎈', '🌟', '💥'];
+
+        function getRandomColor() {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        input.addEventListener('input', () => {
+            const text = input.value;
+            output.innerHTML = '';
+            document.body.style.backgroundColor = getRandomColor();
+
+            for (let i = 0; i < text.length; i++) {
+                const char = text[i];
+                const span = document.createElement('span');
+                span.className = 'letter';
+                span.textContent = char === ' ' ? '\u00A0' : char;
+                span.style.transform = rotate(${Math.random() * 20 - 10}deg); // Random tilt
+                output.appendChild(span);
+
+                const sound = document.createElement('span');
+                sound.className = 'sound';
+                sound.textContent = ` ${soundEffects[Math.floor(Math.random() * soundEffects.length)]} `;
+                output.appendChild(sound);
+
+                // Random confetti burst every 3rd character
+                if (i % 3 === 0 && i !== 0) {
+                    const confetti = document.createElement('span');
+                    confetti.className = 'confetti';
+                    confetti.textContent = confettiEmojis[Math.floor(Math.random() * confettiEmojis.length)];
+                    confetti.style.left = ${Math.random() * window.innerWidth}px;
+                    confetti.style.top = ${Math.random() * window.innerHeight}px;
+                    document.body.appendChild(confetti);
+                    setTimeout(() => confetti.remove(), 1000);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
